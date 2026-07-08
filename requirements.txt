@@ -1,6 +1,6 @@
-mcp>=1.0,<2.0
-google-api-python-client
-google-auth-oauthlib
-google-auth-httplib2
-python-dotenv
-pytest
+mcp>=1.2.0
+google-api-python-client>=2.108.0
+google-auth-oauthlib>=1.1.0
+python-dotenv>=1.0.0
+uvicorn>=0.34.0
+starlette>=0.45.0
