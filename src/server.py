@@ -212,7 +212,13 @@ if __name__ == "__main__":
             "Starting MCP Google Workspace server (SSE transport on %s:%d)...",
             HOST, PORT
         )
-        uvicorn.run(mcp.sse_app(), host=HOST, port=PORT)
+        uvicorn.run(
+            mcp.sse_app(), 
+            host=HOST, 
+            port=PORT,
+            proxy_headers=True,
+            forwarded_allow_ips="*"
+        )
     else:
         logger.info("Starting MCP Google Workspace server (stdio transport)...")
         mcp.run(transport="stdio")
