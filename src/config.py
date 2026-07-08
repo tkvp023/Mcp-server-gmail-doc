@@ -30,6 +30,16 @@ HOST: str = os.getenv("HOST", "0.0.0.0")
 _credentials_json_env = os.getenv("GOOGLE_CREDENTIALS_JSON")
 _token_json_env = os.getenv("GOOGLE_TOKEN_JSON")
 
+# Fallback: detect if someone pasted raw JSON into the _PATH variables
+_credentials_path_env = os.getenv("GOOGLE_CREDENTIALS_PATH", "")
+_token_path_env = os.getenv("GOOGLE_TOKEN_PATH", "")
+
+if not _credentials_json_env and _credentials_path_env.strip().startswith("{"):
+    _credentials_json_env = _credentials_path_env
+
+if not _token_json_env and _token_path_env.strip().startswith("{"):
+    _token_json_env = _token_path_env
+
 
 def _write_env_json_to_tempfile(json_content: str, filename: str) -> str:
     """
