@@ -9,8 +9,26 @@ if [ $EXIT_CODE -ne 0 ]; then
     cat error.log
     
     # Start a dummy HTTP server to serve the error log so we can see it from the outside!
-    echo -e "HTTP/1.1 500 Internal Server Error\n\n$(cat error.log)" > response.http
-    while true; do
-        cat response.http | nc -l -p $PORT
-    done
+    echo "Serving error log on port $PORT..."
+    cat << 'EOF' > serve_error.py
+import os
+import sys
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class ErrorHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(500)
+        self.send_header('Content-Type', 'text/plain')
+        self.end_headers()
+        try:
+            with open("error.log", "rb") as f:
+                self.wfile.write(f.read())
+        except Exception as e:
+            self.wfile.write(str(e).encode())
+
+port = int(os.getenv("PORT", "8000"))
+server = HTTPServer(("0.0.0.0", port), ErrorHandler)
+server.serve_forever()
+EOF
+    python serve_error.py
 fi
