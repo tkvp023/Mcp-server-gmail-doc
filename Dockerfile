@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Railway provides $PORT at runtime
-ENV MCP_TRANSPORT=streamable-http
+ENV MCP_TRANSPORT=sse
 ENV HOST=0.0.0.0
 
 # Start the MCP server
