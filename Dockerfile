@@ -11,7 +11,7 @@ COPY . .
 
 # Railway provides $PORT at runtime
 ENV MCP_TRANSPORT=sse
-ENV HOST=::
+ENV HOST=0.0.0.0
 
 # Start the MCP server directly
-CMD ["python", "-m", "src.server"]
+CMD ["python", "test_app.py"]
