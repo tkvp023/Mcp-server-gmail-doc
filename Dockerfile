@@ -13,5 +13,8 @@ COPY . .
 ENV MCP_TRANSPORT=sse
 ENV HOST=0.0.0.0
 
-# Start the MCP server
-CMD ["python", "-m", "src.server"]
+# Ensure entrypoint is executable
+RUN chmod +x entrypoint.sh
+
+# Start the MCP server via entrypoint script
+CMD ["bash", "entrypoint.sh"]

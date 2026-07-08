@@ -1,1 +1,1 @@
-web: python -m src.server
+web: bash entrypoint.sh
