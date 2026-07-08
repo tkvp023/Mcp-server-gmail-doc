@@ -212,8 +212,15 @@ if __name__ == "__main__":
             "Starting MCP Google Workspace server (SSE transport on %s:%d)...",
             HOST, PORT
         )
+        from starlette.responses import JSONResponse
+        from starlette.routing import Route
+        
+        app = mcp.sse_app()
+        # Add a root healthcheck route so Railway doesn't kill the container
+        app.routes.append(Route("/", endpoint=lambda req: JSONResponse({"status": "ok"})))
+
         uvicorn.run(
-            mcp.sse_app(), 
+            app, 
             host=HOST, 
             port=PORT,
             proxy_headers=True,
