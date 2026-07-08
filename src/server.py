@@ -206,7 +206,7 @@ def gdoc_append_content(
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    if MCP_TRANSPORT == "sse":
+    if MCP_TRANSPORT in ("sse", "streamable-http"):
         import uvicorn
         logger.info(
             "Starting MCP Google Workspace server (SSE transport on %s:%d)...",
