@@ -28,8 +28,9 @@ except FileNotFoundError as e:
     logger.error(str(e))
     raise
 
-# Initialize MCP server
-mcp = FastMCP("google-workspace")
+# Initialize MCP server with host/port so FastMCP disables
+# localhost-only DNS rebinding protection for cloud deployments
+mcp = FastMCP("google-workspace", host=HOST, port=PORT)
 
 
 # ---------------------------------------------------------------------------
