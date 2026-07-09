@@ -14,4 +14,4 @@ ENV MCP_TRANSPORT=sse
 ENV HOST=0.0.0.0
 
 # Start the MCP server directly
-CMD ["python", "test_app.py"]
+CMD ["python", "-m", "src.server"]
